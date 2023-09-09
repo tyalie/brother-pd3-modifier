@@ -156,9 +156,14 @@ def cmd_combine(input_folder: str, output_file: str):
   header.x0E_checksum = new_checksum
 
   d_header = header.to_bytes()
+  d_data = d_header + d_data
+
+  # check on whether our file reaaly is correct. Mistakes could
+  # have big repercusions
+  print("Done generating. Verifying")
+  verify_file(d_data)
 
   with open(output_file, "wb") as fp:
-    fp.write(d_header)
     fp.write(d_data)
 
 if __name__ == "__main__":
