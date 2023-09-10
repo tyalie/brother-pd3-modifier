@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+Tool to manipulate, repackage, verify or analyze a COLOR PD3
+file used by Brother label printers
+"""
+"""
+Copyright (C) 2023, Tyalie
+"""
 import argparse
 from pathlib import Path
 from dataclasses import asdict
@@ -9,25 +16,18 @@ import re
 from libs.analyze_lib import *
 
 def get_args():
-  parser = argparse.ArgumentParser()
+  parser = argparse.ArgumentParser(description=__doc__)
   parser.add_argument("-i", "--input", help="Input file / bitmap folder", required=True)
   sub_parser = parser.add_subparsers()
 
-  lis = sub_parser.add_parser("list")
+  lis = sub_parser.add_parser("list", help="List all COLOR table entries")
   lis.set_defaults(cmd = "list")
 
-  ext = sub_parser.add_parser("extract")
+  ext = sub_parser.add_parser("extract", help="Extract a COLOR PD3 file including header and images into a folder")
   ext.set_defaults(cmd = "extract")
   ext.add_argument("-o", "--output", help="Output folder location", required=True)
 
-  inc = sub_parser.add_parser("replace")
-  inc.set_defaults(cmd = "replace")
-
-  inc.add_argument("-b", "--bitmap", help="bitmap file to include", required=True)
-  inc.add_argument("-o", "--output", help="output modified file", required=True)
-  inc.add_argument("--idx", help="Index of bitmap to extract/replace", required=True)
-
-  comb = sub_parser.add_parser("combine")
+  comb = sub_parser.add_parser("combine", help="Combine a conforming folder back into a PD3 file")
   comb.set_defaults(cmd = "combine")
 
   comb.add_argument("-o", "--output", help="output modified file", required=True)
