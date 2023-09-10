@@ -32,6 +32,9 @@ def get_args():
 
   comb.add_argument("-o", "--output", help="output modified file", required=True)
 
+  veri = sub_parser.add_parser("verify", help="Verify COLOR PD3 file for correctness")
+  veri.set_defaults(cmd = "verify")
+
   return parser.parse_args()
 
 def _open_pd3(input_file: str):
@@ -166,9 +169,15 @@ def cmd_combine(input_folder: str, output_file: str):
   with open(output_file, "wb") as fp:
     fp.write(d_data)
 
+def cmd_verify(in_file: str | Path):
+  with open(in_file, "rb") as fp:
+    data = fp.read()
+
+  verify_file(data)
+
 if __name__ == "__main__":
   args = get_args()
-  print(args)
+
   match args.cmd:
     case "list":
       cmd_list(args.input)
@@ -176,5 +185,7 @@ if __name__ == "__main__":
       cmd_extract(args.input, args.output)
     case "combine":
       cmd_combine(args.input, args.output)
+    case "verify":
+      cmd_verify(args.input)
     case v:
       raise Exception(f"Unknown command {v}")
