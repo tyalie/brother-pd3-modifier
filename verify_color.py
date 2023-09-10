@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import argparse
-from analyze_lib import *
+from libs.analyze_lib import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--file", help="Input file to analyze", required=True)

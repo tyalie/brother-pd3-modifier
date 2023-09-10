@@ -6,7 +6,7 @@ import base64
 import json
 import re
 
-from analyze_lib import *
+from libs.analyze_lib import *
 
 def get_args():
   parser = argparse.ArgumentParser()
