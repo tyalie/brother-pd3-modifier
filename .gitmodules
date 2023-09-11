@@ -1,3 +1,4 @@
 [submodule "pt-d600-themes"]
 	path = pt-d600-themes
 	url = https://github.com/tyalie/pt-d600-themes.git
+	branch = main
